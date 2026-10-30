@@ -12,21 +12,40 @@ class LoginHeader extends StatelessWidget {
       children: [
         const SizedBox(height: 16),
         const HexLogo(size: 68),
-        const SizedBox(height: 18),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: AppColors.primary.withAlpha(20),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppColors.primary.withAlpha(50), width: 0.8),
+          ),
+          child: const Text(
+            'MULTI-PROPERTY SAAS PLATFORM',
+            style: TextStyle(
+              fontSize: 10.5,
+              fontWeight: FontWeight.w800,
+              color: AppColors.primary,
+              letterSpacing: 0.8,
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
         const Text(
-          'ระบบจัดการหอพัก',
+          'ระบบจัดการหอพัก SaaS',
           style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
+            fontSize: 25,
+            fontWeight: FontWeight.w900,
             color: AppColors.textPrimary,
             letterSpacing: -0.5,
           ),
         ),
         const SizedBox(height: 6),
-        Text(
-          'เข้าสู่ระบบสำหรับเจ้าของหอพักและผู้ดูแล',
+        const Text(
+          'ระบบคลาวด์สำหรับเจ้าของหอพักและฝ่ายบริหาร',
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
             color: AppColors.textSecondary,
           ),
         ),

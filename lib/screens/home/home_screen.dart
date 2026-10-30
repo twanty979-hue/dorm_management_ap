@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
-import 'widgets/create_invoice_banner.dart';
-import 'widgets/home_bento_stats.dart';
 import 'widgets/home_header.dart';
-import 'widgets/home_hero_carousel.dart';
-import 'widgets/home_menu_grid.dart';
-import 'widgets/home_story_bar.dart';
-import 'widgets/maintenance_list_section.dart';
+import 'widgets/kbank_cashflow_card.dart';
+import 'widgets/kbank_pending_section.dart';
+import 'widgets/kbank_quick_actions.dart';
 
-/// Screen 1: Main Home & Dashboard Screen with Full-width Auto-sliding Hero Carousel & Story Status
+/// Banking & Cashflow Hub Dashboard (K PLUS Style) for Dormitory Owners
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -22,37 +19,25 @@ class HomeScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
-          padding: const EdgeInsets.fromLTRB(16, 14, 16, 110), // Bottom padding for frosted bar
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 110), // Bottom space for frosted tab bar
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: const [
-              // Top Bar: Property Switcher & Notification Bell
+              // 1. Top Header: Dorm Property Selector & Notifications
               HomeHeader(),
               SizedBox(height: 14),
 
-              // Instagram Stories Ring Bar (สถานะด่วน: ห้องว่าง, แจ้งซ่อมด่วน, บิลค้างชำระ)
-              HomeStoryBar(),
-              SizedBox(height: 16),
+              // 2. K PLUS Hero Cashflow Card (Monthly Revenue, Collected vs Unpaid)
+              KBankCashflowCard(),
+              SizedBox(height: 14),
 
-              // Full-width Auto-sliding Hero Carousel (ข่าวสาร & ประกาศหอพัก)
-              HomeHeroCarousel(),
+              // 3. 4 Large Primary Action Buttons (Issue Bill, Read Meter, LINE Reminder, Repairs)
+              KBankQuickActions(),
               SizedBox(height: 18),
 
-              // Modern Bento Stats Grid (สถิติรวม)
-              HomeBentoStats(),
-              SizedBox(height: 18),
-
-              // Quick Action Gradient Banner (สร้างใบแจ้งหนี้ใหม่ด่วน)
-              CreateInvoiceBanner(),
-              SizedBox(height: 20),
-
-              // 6 Main Action Menus Grid
-              HomeMenuGrid(),
-              SizedBox(height: 22),
-
-              // Pending Maintenance Requests List
-              MaintenanceListSection(),
-              SizedBox(height: 24),
+              // 4. Actionable Overdue Rooms & Quick Room/Tenant Shortcuts
+              KBankPendingSection(),
+              SizedBox(height: 12),
             ],
           ),
         ),

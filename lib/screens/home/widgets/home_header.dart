@@ -100,50 +100,81 @@ class _HomeHeaderState extends State<HomeHeader> {
         ),
         const SizedBox(width: 10),
 
-        // Notification Bell Button
-        GestureDetector(
-          onTap: () {
-            NotificationCenterModal.show(context);
-          },
-          child: Container(
-            width: 42,
-            height: 42,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.black.withAlpha(8), width: 0.8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withAlpha(8),
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const Icon(
-                  CupertinoIcons.bell,
-                  color: AppColors.textPrimary,
-                  size: 20,
-                ),
-                Positioned(
-                  top: 10,
-                  right: 11,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 1.5),
-                    ),
+        // Right Side: Billing Cycle Badge & Notification Bell
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8.5, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black.withAlpha(8), width: 0.8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withAlpha(4),
+                    blurRadius: 6,
+                    offset: const Offset(0, 1),
                   ),
+                ],
+              ),
+              child: const Text(
+                'ต.ค. 2026',
+                style: TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primary,
+                  letterSpacing: -0.2,
                 ),
-              ],
+              ),
             ),
-          ),
+            const SizedBox(width: 8),
+
+            // Notification Bell Button
+            GestureDetector(
+              onTap: () {
+                NotificationCenterModal.show(context);
+              },
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.black.withAlpha(8), width: 0.8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withAlpha(5),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const Icon(
+                      CupertinoIcons.bell,
+                      color: AppColors.textPrimary,
+                      size: 19,
+                    ),
+                    Positioned(
+                      top: 9,
+                      right: 10,
+                      child: Container(
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 1.5),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

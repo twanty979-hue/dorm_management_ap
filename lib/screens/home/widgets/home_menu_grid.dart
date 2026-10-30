@@ -1,62 +1,112 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../models/menu_item_model.dart';
 import '../../../widgets/custom_icon_badge.dart';
 import '../../financial_report/financial_report_screen.dart';
 import '../../line_oa/line_oa_screen.dart';
 import '../../maintenance/maintenance_screen.dart';
 import '../../meter_reading/meter_reading_screen.dart';
-import '../../placeholder/subpage_screen.dart';
 import '../../room_management/room_management_screen.dart';
-import '../../settings/settings_screen.dart';
 import '../../tenant_management/tenant_management_screen.dart';
 
-/// 2x3 Grid displaying main actions with luxury Apple iOS squircle styling
+class _ModuleItem {
+  final String title;
+  final String subtitle;
+  final IconData? icon;
+  final String? customIcon;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _ModuleItem({
+    required this.title,
+    required this.subtitle,
+    this.icon,
+    this.customIcon,
+    required this.color,
+    required this.onTap,
+  });
+}
+
+/// Professional Enterprise Core Modules Directory
 class HomeMenuGrid extends StatelessWidget {
   const HomeMenuGrid({super.key});
 
-  Color _getMenuIconBgColor(MenuType type) {
-    switch (type) {
-      case MenuType.roomManagement:
-        return const Color(0xFFFBECE5);
-      case MenuType.tenantManagement:
-        return const Color(0xFFEBF3FF);
-      case MenuType.meterReading:
-        return const Color(0xFFFFF6E5);
-      case MenuType.financialReport:
-        return const Color(0xFFE8F9EE);
-      case MenuType.lineOa:
-        return const Color(0xFFEBF9F0);
-      case MenuType.maintenance:
-        return const Color(0xFFFFECEB);
-      case MenuType.settings:
-        return const Color(0xFFF2F2F7);
-    }
-  }
-
-  Color _getMenuIconColor(MenuType type) {
-    switch (type) {
-      case MenuType.roomManagement:
-        return AppColors.primary;
-      case MenuType.tenantManagement:
-        return const Color(0xFF007AFF);
-      case MenuType.meterReading:
-        return const Color(0xFFFF9500);
-      case MenuType.financialReport:
-        return const Color(0xFF34C759);
-      case MenuType.lineOa:
-        return const Color(0xFF06C755);
-      case MenuType.maintenance:
-        return const Color(0xFFFF3B30);
-      case MenuType.settings:
-        return const Color(0xFF636366);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final menus = MenuItemModel.homeGridMenus;
+    final modules = [
+      _ModuleItem(
+        title: 'จัดการห้องพัก',
+        subtitle: '50 ยูนิต • ว่าง 5',
+        icon: Icons.apartment_rounded,
+        color: AppColors.primary,
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const RoomManagementScreen()),
+          );
+        },
+      ),
+      _ModuleItem(
+        title: 'ผู้เช่าและสัญญา',
+        subtitle: '45 สัญญาเช่า',
+        icon: CupertinoIcons.person_2_fill,
+        color: const Color(0xFF007AFF),
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const TenantManagementScreen()),
+          );
+        },
+      ),
+      _ModuleItem(
+        title: 'จดมิเตอร์น้ำ-ไฟ',
+        subtitle: 'รอบ ต.ค. 2026',
+        customIcon: 'meter',
+        color: const Color(0xFFFF9500),
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const MeterReadingScreen()),
+          );
+        },
+      ),
+      _ModuleItem(
+        title: 'การเงินและบัญชี',
+        subtitle: 'รายรับและบิล',
+        icon: CupertinoIcons.doc_plaintext,
+        color: const Color(0xFF34C759),
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const FinancialReportScreen()),
+          );
+        },
+      ),
+      _ModuleItem(
+        title: 'LINE Official',
+        subtitle: '45 บัญชีผู้เช่า',
+        customIcon: 'line',
+        color: const Color(0xFF06C755),
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const LineOaScreen()),
+          );
+        },
+      ),
+      _ModuleItem(
+        title: 'แจ้งซ่อมบำรุง',
+        subtitle: '2 รายการค้าง',
+        icon: CupertinoIcons.wrench_fill,
+        color: const Color(0xFFFF3B30),
+        onTap: () {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const MaintenanceScreen()),
+          );
+        },
+      ),
+    ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,20 +115,20 @@ class HomeMenuGrid extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
             Text(
-              'บริการและฟังก์ชันหลัก',
+              'ศูนย์ระบบงานหลัก',
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 16.5,
                 fontWeight: FontWeight.w800,
                 color: AppColors.textPrimary,
                 letterSpacing: -0.4,
               ),
             ),
             Text(
-              '6 เมนู',
+              '6 โมดูล',
               style: TextStyle(
-                fontSize: 12.5,
+                fontSize: 12,
                 color: AppColors.textSecondary,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -87,35 +137,32 @@ class HomeMenuGrid extends StatelessWidget {
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: menus.length,
+          itemCount: modules.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 11,
-            mainAxisSpacing: 11,
-            childAspectRatio: 0.95, // Proportional squircle
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 2.25,
           ),
           itemBuilder: (context, index) {
-            final menu = menus[index];
-            return _buildAppleMenuCard(context, menu);
+            final mod = modules[index];
+            return _buildModuleCard(context, mod);
           },
         ),
       ],
     );
   }
 
-  Widget _buildAppleMenuCard(BuildContext context, MenuItemModel menu) {
-    final iconBg = _getMenuIconBgColor(menu.type);
-    final iconColor = _getMenuIconColor(menu.type);
-
+  Widget _buildModuleCard(BuildContext context, _ModuleItem mod) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.black.withAlpha(8), width: 0.8),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(5),
-            blurRadius: 10,
+            color: Colors.black.withAlpha(4),
+            blurRadius: 8,
             offset: const Offset(0, 2),
           ),
         ],
@@ -123,108 +170,66 @@ class HomeMenuGrid extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(20),
-          highlightColor: iconColor.withAlpha(12),
-          onTap: () {
-            if (menu.type == MenuType.roomManagement) {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const RoomManagementScreen(),
-                ),
-              );
-            } else if (menu.type == MenuType.tenantManagement) {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const TenantManagementScreen(),
-                ),
-              );
-            } else if (menu.type == MenuType.meterReading) {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const MeterReadingScreen(),
-                ),
-              );
-            } else if (menu.type == MenuType.financialReport) {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const FinancialReportScreen(),
-                ),
-              );
-            } else if (menu.type == MenuType.lineOa) {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const LineOaScreen(),
-                ),
-              );
-            } else if (menu.type == MenuType.maintenance) {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const MaintenanceScreen(),
-                ),
-              );
-            } else if (menu.type == MenuType.settings) {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const SettingsScreen(),
-                ),
-              );
-            } else {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => SubpageScreen(
-                    title: menu.title,
-                    subtitle: 'ฟังก์ชัน ${menu.title} สำหรับบริหารจัดการหอพัก',
-                  ),
-                ),
-              );
-            }
-          },
+          borderRadius: BorderRadius.circular(16),
+          highlightColor: mod.color.withAlpha(12),
+          onTap: mod.onTap,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 10),
+            child: Row(
               children: [
-                // Icon with subtle soft circle background
+                // Icon
                 Container(
-                  width: 44,
-                  height: 44,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
-                    color: iconBg,
-                    borderRadius: BorderRadius.circular(14),
+                    color: mod.color.withAlpha(20),
+                    borderRadius: BorderRadius.circular(11),
                   ),
                   child: Center(
-                    child: menu.isCustomIcon
+                    child: mod.customIcon != null
                         ? CustomIconBadge(
-                            type: menu.customIconType ?? 'meter',
-                            size: 24,
-                            color: iconColor,
+                            type: mod.customIcon!,
+                            size: 19,
+                            color: mod.color,
                           )
                         : Icon(
-                            menu.icon,
-                            size: 22,
-                            color: iconColor,
+                            mod.icon,
+                            size: 18,
+                            color: mod.color,
                           ),
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  menu.title,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
-                    letterSpacing: -0.2,
+                const SizedBox(width: 9),
+
+                // Title & Subtitle
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        mod.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                      const SizedBox(height: 1),
+                      Text(
+                        mod.subtitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 10.5,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'core/theme/app_theme.dart';
-import 'screens/main_navigation_screen.dart';
+import 'screens/auth/login_screen.dart';
 
 void main() {
   runApp(const DormManagementApp());
@@ -13,10 +13,10 @@ class DormManagementApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dorm Management',
+      title: 'Dorm Management SaaS',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const MainNavigationScreen(initialIndex: 0),
+      home: const LoginScreen(),
     );
   }
 }
